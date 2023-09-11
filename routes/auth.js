@@ -6,8 +6,8 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 var fetchuser = require("../Middleware/fetchuser");
+require('dotenv').config();
 
-const JWT_SECRET = "PasscodeEditor";
 
 // Route 1: for crating user....
 // we have to create a user using: POST "/api/auth/creatreuser".no login required...
@@ -53,7 +53,7 @@ router.post(
           id: user.id,
         },
       };
-      const authToken = jwt.sign(data, JWT_SECRET);
+      const authToken = jwt.sign(data, process.env.JWT_SECRET);
       success=true;
       // res.json(user.id);
       res.json({ success,authToken });
@@ -104,7 +104,7 @@ router.post(
           id: user.id,
         },
       };
-      const authToken = jwt.sign(data, JWT_SECRET);
+      const authToken = jwt.sign(data, process.env.JWT_SECRET);
       success = true;
       res.json({ success, authToken });
     } catch (error) {
